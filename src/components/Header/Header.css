@@ -1,0 +1,9 @@
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.header__nav_img {
+  width: 11%;
+}
