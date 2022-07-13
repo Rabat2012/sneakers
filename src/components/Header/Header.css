@@ -7,3 +7,11 @@
 .header__nav_img {
   width: 11%;
 }
+
+.account {
+  display: flex;
+}
+
+.account h3 {
+  margin-right: 5px;
+}
