@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import logo from "../../assets/logo.svg";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { authContext } from "../../contexts/authContext";
+import Loader from "../Loader/Loader";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { currentUser, checkAuth, loading, handleLogout } =
+    useContext(authContext);
+  useEffect(() => {
+    if (localStorage.getItem("tokens")) {
+      checkAuth();
+    }
+  }, []);
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <div>
+    <>
       <header className="header">
         <nav className="header__nav">
           <h3 onClick={() => navigate("/brands")} className="header__nav_link">
@@ -18,20 +30,41 @@ const Header = () => {
             src={logo}
             alt="logo"
           />
-          <div className="account">
-            <h3 onClick={() => navigate("/login")} className="header__nav_link">
-              Login
-            </h3>
 
-            <h3
-              onClick={() => navigate("/register")}
-              className="header__nav_link">
-              Register
-            </h3>
-          </div>
+          {currentUser ? (
+            <div>
+              <button
+              //  onClick={() => navigate("/add")}
+              >
+                Add product
+              </button>
+              <button
+                variant="contained"
+                // onClick={() => navigate("/favorites")}
+              >
+                Favorites
+              </button>
+              <h1>{currentUser}</h1>
+              <button onClick={() => handleLogout(navigate)}>Logout</button>
+            </div>
+          ) : (
+            <div className="account">
+              <h3
+                onClick={() => navigate("/login")}
+                className="header__nav_link">
+                Login
+              </h3>
+
+              <h3
+                onClick={() => navigate("/register")}
+                className="header__nav_link">
+                Register
+              </h3>
+            </div>
+          )}
         </nav>
       </header>
-    </div>
+    </>
   );
 };
 
