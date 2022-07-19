@@ -1,9 +1,11 @@
 // import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import Adidas from "./components/Brands/Adidas";
-import Asics from "./components/Brands/Asics";
-import Brands from "./components/Brands/Brands";
-import Nike from "./components/Brands/Nike";
+import AddProduct from "./components/AddProduct/AddProduct";
+import AllProducts from "./components/AllProducts/AllProducts";
+import Adidas from "./components/Brand/Adidas";
+import Asics from "./components/Brand/Asics";
+import Brands from "./components/Brand/Brands";
+import Nike from "./components/Brand/Nike";
 import HomePage from "./components/HomePage/HomePage";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -21,6 +23,10 @@ const Routing = () => {
       <Route path="/register-success" element={<RegisterSuccess />} />
 
       <Route path="/brands" element={<Brands />} />
+
+      <Route path="/add" element={<AddProduct />} />
+
+      <Route path="/all-products" element={<AllProducts />} />
 
       <Route path="/adidas" element={<Adidas />} />
 
