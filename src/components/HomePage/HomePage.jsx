@@ -20,12 +20,12 @@ const images = [
       'http://sneakerbardetroit.com/wp-content/uploads/2016/02/Nike-Air-Force-1-Ultra-Flyknit-Low-University-Red-Available.jpg',
   },
   {
-    label: 'Mark Gonzales x adidas Ultra Boost Releases June 11th',
+    label: 'Mark Gonzales x adidas Ultra Boost',
     imgPath:
       'https://sneakerbardetroit.com/wp-content/uploads/2022/04/Mark-Gonzales-adidas-Ultra-Boost-GX1694.jpeg',
   },
   {
-    label: 'Sean Wotherspoon x atmos x ASICS Gel Lyte III Releases Tomorrow',
+    label: 'Sean Wotherspoon x atmos x ASICS Gel Lyte III',
     imgPath: 
       'https://sneakerbardetroit.com/wp-content/uploads/2020/08/ASICS-Gel-Lyte-III-Sean-Wotherspoon-atmos-Release-Date.jpg',
   },
