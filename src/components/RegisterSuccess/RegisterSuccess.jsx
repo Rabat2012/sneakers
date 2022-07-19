@@ -2,13 +2,12 @@ import { Box, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const RegisterSuccess = () => {
-
-
   return (
     <Container>
       <Box>
         <Typography>
-          <Link to="/login">войти</Link> в
+          Вы успешно зарегистрировались, можете
+          <Link to="/login"> войти</Link> в свой аккаунт
         </Typography>
       </Box>
     </Container>
