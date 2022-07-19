@@ -3,3 +3,13 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+
+.qwe{
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+.qwer{
+  display: flex !important;
+  align-items: center !important;
+}
