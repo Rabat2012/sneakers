@@ -1,19 +1,44 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-const Brands = () => {
+// const Brands = () => {
+//   return (
+//     <div>
+//       <Link to="/adidas">
+//         <button color="secondary">Adidas</button>
+//       </Link>
+//       <Link to="/asics">
+//         <button color="secondary">Asics</button>
+//       </Link>
+//       <Link to="/nike">
+//         <button color="secondary">Nike</button>
+//       </Link>
+//     </div>
+//   );
+// };
+
+// export default Brands;
+import { Link } from "react-router-dom";
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+export default function ColorButtons() {
   return (
-    <div>
+    <Stack direction="row" spacing={2}>
       <Link to="/adidas">
-        <button>Adidas</button>
+      <Button className="qwerty">Adidas</Button>
       </Link>
       <Link to="/asics">
-        <button>Asics</button>
+      <Button>
+        Asics
+      </Button>
       </Link>
       <Link to="/nike">
-        <button>Nike</button>
+      <Button>
+        Nike
+      </Button>
       </Link>
-    </div>
+    </Stack>
   );
-};
+}
 
-export default Brands;
