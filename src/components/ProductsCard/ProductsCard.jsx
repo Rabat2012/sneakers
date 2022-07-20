@@ -96,7 +96,7 @@ export default function ProductsCard({ item }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{item.description}</Typography>
+          <Typography paragraph>Описание: {item.description}</Typography>
         </CardContent>
       </Collapse>
     </Card>
