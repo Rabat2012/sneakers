@@ -4,6 +4,14 @@
   margin: 20px;
 }
 
+.header__nav_product-list {
+  display: flex;
+}
+
+.header__nav_product-list h3 {
+  margin-right: 5px;
+}
+
 .header__nav_img {
   width: 11%;
 }

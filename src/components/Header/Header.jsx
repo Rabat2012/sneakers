@@ -21,9 +21,18 @@ const Header = () => {
     <>
       <header className="header">
         <nav className="header__nav">
-          <h3 onClick={() => navigate("/brands")} className="header__nav_link">
-            Brands
-          </h3>
+          <div className="header__nav_product-list">
+            <h3
+              onClick={() => navigate("/brands")}
+              className="header__nav_link">
+              Brands
+            </h3>
+            <h3
+              onClick={() => navigate("/all-products")}
+              className="header__nav_link">
+              All Products
+            </h3>
+          </div>
           <img
             onClick={() => navigate("/")}
             className="header__nav_img"
@@ -33,11 +42,7 @@ const Header = () => {
 
           {currentUser ? (
             <div>
-              <button
-              //  onClick={() => navigate("/add")}
-              >
-                Add product
-              </button>
+              <button onClick={() => navigate("/add")}>Add product</button>
               <button
                 variant="contained"
                 // onClick={() => navigate("/favorites")}
