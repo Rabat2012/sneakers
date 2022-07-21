@@ -57,7 +57,7 @@ export default function ProductsCard({ item }) {
   console.log(item);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, margin: 5 }}>
       <CardHeader
         action={
           <IconButton onClick={() => navigate(`/products/${item.id}`)}>

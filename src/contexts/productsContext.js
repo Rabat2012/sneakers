@@ -5,6 +5,7 @@ export const productsContext = React.createContext();
 
 const INIT_STATE = {
   products: [],
+  pages: 0,
   brands: [],
   types: [],
   oneProduct: null,
@@ -51,7 +52,10 @@ const ProductsContextProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios(`${API}/products/`, config);
+      const res = await axios(
+        `${API}/products/${window.location.search}`,
+        config
+      );
       dispatch({
         type: "GET_PRODUCTS",
         payload: res.data,
@@ -206,7 +210,10 @@ const ProductsContextProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios(`${API}/favorites/`, config);
+      const res = await axios(
+        `${API}/favorites/${window.location.search}`,
+        config
+      );
       dispatch({
         type: "GET_FAVORITES",
         payload: res.data,
@@ -270,6 +277,7 @@ const ProductsContextProvider = ({ children }) => {
     <productsContext.Provider
       value={{
         products: state.products,
+        pages: state.pages,
         brands: state.brands,
         types: state.types,
         oneProduct: state.oneProduct,
