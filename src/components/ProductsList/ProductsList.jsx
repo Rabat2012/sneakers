@@ -1,4 +1,4 @@
-import { Box, Container, Pagination } from "@mui/material";
+import { Box, Container, Pagination, Slider, TextField } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { productsContext } from "../../contexts/productsContext";
@@ -8,6 +8,10 @@ const ProductsList = () => {
   const { getProducts, products, pages } = useContext(productsContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([1, 1000]);
+  const [search, setSearch] = useState(
+    searchParams.get("search") ? searchParams.get("search") : ""
+  );
   useEffect(() => {
     getProducts();
   }, []);
@@ -16,12 +20,24 @@ const ProductsList = () => {
   }, [searchParams]);
   useEffect(() => {
     setSearchParams({
+      search: search,
       page: currentPage,
+      price_from: price[0],
+      price_to: price[1],
     });
-  }, [currentPage]);
+  }, [search, currentPage, price]);
 
   return (
     <Container>
+      <Box className="search-box">
+        <TextField
+          className="search"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          label="Search..."
+          variant="filled"
+        />
+      </Box>
       <Box
         display={"flex"}
         flexWrap={"wrap"}
@@ -31,6 +47,18 @@ const ProductsList = () => {
           <ProductsCard key={item.title} item={item} />
         ))}
       </Box>
+      <Slider
+        className="slider"
+        getAriaLabel={() => "Temperature range"}
+        value={price}
+        onChange={(e, value) => {
+          setPrice(value);
+        }}
+        valueLabelDisplay="auto"
+        min={0}
+        max={100000}
+        step={10}
+      />
       <Box>
         <Pagination
           page={currentPage}
