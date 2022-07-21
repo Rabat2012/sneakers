@@ -6,7 +6,10 @@ import Adidas from "./components/Brand/Adidas";
 import Asics from "./components/Brand/Asics";
 import Brands from "./components/Brand/Brands";
 import Nike from "./components/Brand/Nike";
+import Cart from "./components/Cart/Cart";
+import Details from "./components/Details/Details";
 import EditProduct from "./components/EditProduct/EditProduct";
+import Fav from "./components/Fav/Fav";
 import HomePage from "./components/HomePage/HomePage";
 import Login from "./components/Login/Login";
 import ProductsList from "./components/ProductsList/ProductsList";
@@ -28,7 +31,13 @@ const Routing = () => {
 
       <Route path="/add" element={<AddProduct />} />
 
+      <Route path="/fav" element={<Fav />} />
+
+      <Route path="/cart" element={<Cart />} />
+
       <Route path="/edit/:id" element={<EditProduct />} />
+
+      <Route path="/products/:id" element={<Details />} />
 
       <Route path="/products" element={<ProductsList />} />
 

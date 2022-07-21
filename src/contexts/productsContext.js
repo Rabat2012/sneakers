@@ -9,6 +9,7 @@ const INIT_STATE = {
   types: [],
   oneProduct: null,
   liked: [],
+  favorites: [],
 };
 
 function reducer(state = INIT_STATE, action) {
@@ -18,6 +19,11 @@ function reducer(state = INIT_STATE, action) {
         ...state,
         products: action.payload.results,
         pages: Math.ceil(action.payload.count / 9),
+      };
+    case "GET_FAVORITES":
+      return {
+        ...state,
+        favorites: action.payload.results,
       };
     case "GET_BRANDS":
       return { ...state, brands: action.payload };
@@ -158,6 +164,59 @@ const ProductsContextProvider = ({ children }) => {
     }
   }
 
+  async function toggleLike(id) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios(`${API}/products/${id}/like/`, config);
+      getProducts();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function toggleFavorites(id) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios(`${API}/products/${id}/favorite/`, config);
+      getProducts();
+      getFavorites();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getFavorites() {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios(`${API}/favorites/`, config);
+      dispatch({
+        type: "GET_FAVORITES",
+        payload: res.data,
+      });
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async function deleteProduct(id) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
@@ -174,7 +233,24 @@ const ProductsContextProvider = ({ children }) => {
     }
   }
 
-  async function toggleLike(id, liked) {
+  async function createComment(comment, productId) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      //config
+      const Authorization = `Bearer ${tokens.access}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.post(`${API}/comments/`, comment, config);
+      console.log(res);
+      getOneProduct(productId);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function deleteComment(commentId, productId) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
       const Authorization = `Bearer ${tokens.access}`;
@@ -183,16 +259,13 @@ const ProductsContextProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios.post(
-        `${API}/products/${id}/like/`,
-        liked,
-        config
-      );
-      // console.log(res.like);
+      await axios.delete(`${API}/comments/${commentId}/`, config);
+      getOneProduct(productId);
     } catch (err) {
       console.log(err);
     }
   }
+
   return (
     <productsContext.Provider
       value={{
@@ -200,6 +273,7 @@ const ProductsContextProvider = ({ children }) => {
         brands: state.brands,
         types: state.types,
         oneProduct: state.oneProduct,
+        favorites: state.favorites,
         getProducts,
         getBrands,
         getTypes,
@@ -208,6 +282,10 @@ const ProductsContextProvider = ({ children }) => {
         updateProduct,
         deleteProduct,
         toggleLike,
+        toggleFavorites,
+        getFavorites,
+        createComment,
+        deleteComment,
       }}>
       {children}
     </productsContext.Provider>

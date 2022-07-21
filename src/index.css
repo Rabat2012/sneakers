@@ -4,8 +4,19 @@
   font-family: "Poppins", sans-serif;
 }
 
-.qwe{
+.qwe {
   display: flex !important;
   justify-content: center !important;
   text-align: center !important;
+}
+
+@media (max-width: 520px) {
+  .header__nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

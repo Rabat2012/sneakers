@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
+import "./Register.css";
 
 const Register = () => {
   const { handleRegister, error, setError } = useContext(authContext);
@@ -42,9 +43,11 @@ const Register = () => {
   }, []);
 
   return (
-    <Container maxWidth="sm">
+    <Container className="reg" maxWidth="sm">
       <Box display={"flex"} flexDirection={"column"} marginTop={"50px"}>
-        <Typography variant="h5">Register</Typography>
+        <Typography className="margin-reg" variant="h5">
+          Register
+        </Typography>
 
         {error ? (
           <Box>
@@ -57,24 +60,28 @@ const Register = () => {
         ) : null}
 
         <TextField
+          className="margin-reg"
           value={email}
           onChange={e => setEmail(e.target.value)}
           variant="outlined"
           label="Email"
         />
         <TextField
+          className="margin-reg"
           value={name}
           onChange={e => setName(e.target.value)}
           variant="outlined"
           label="Name"
         />
         <TextField
+          className="margin-reg"
           value={password}
           onChange={e => setPassword(e.target.value)}
           variant="outlined"
           label="Password"
         />
         <TextField
+          className="margin-reg"
           value={passwordConfirm}
           onChange={e => setPasswordConfirm(e.target.value)}
           variant="outlined"
