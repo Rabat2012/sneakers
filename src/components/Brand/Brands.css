@@ -1,3 +1,8 @@
 .qwerty {
-    color:black;
+  color: black;
+}
+.disp {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
