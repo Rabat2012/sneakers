@@ -4,6 +4,9 @@ import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
 import Loader from "../Loader/Loader";
+import { IconButton } from "@mui/material";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { AddShoppingCart } from "@mui/icons-material";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,15 +45,22 @@ const Header = () => {
 
           {currentUser ? (
             <div>
-              <button onClick={() => navigate("/add")}>Add product</button>
-              <button
-                variant="contained"
-                // onClick={() => navigate("/favorites")}
-              >
-                Favorites
-              </button>
-              <h1>{currentUser}</h1>
-              <button onClick={() => handleLogout(navigate)}>Logout</button>
+              <div>
+                <IconButton
+                  onClick={() => navigate("/fav")}
+                  aria-label="add to shopping cart">
+                  <BookmarkIcon />
+                </IconButton>
+                <IconButton
+                  onClick={() => navigate("/cart")}
+                  aria-label="add to shopping cart">
+                  <AddShoppingCart />
+                </IconButton>
+              </div>
+              <h4 onClick={() => navigate("/add")}>Add product</h4>
+
+              <h4>{currentUser}</h4>
+              <h4 onClick={() => handleLogout(navigate)}>Logout</h4>
             </div>
           ) : (
             <div className="account">
