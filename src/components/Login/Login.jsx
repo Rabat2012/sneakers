@@ -9,6 +9,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,17 +31,21 @@ const Login = () => {
   }, []);
 
   return (
-    <Container maxWidth="sm">
+    <Container className="login" maxWidth="sm">
       <Box display={"flex"} flexDirection={"column"} marginTop={"50px"}>
-        <Typography variant="h5">Login</Typography>
+        <Typography className="margin-login" variant="h5">
+          Login
+        </Typography>
         {error ? <Alert severity="error">{error}</Alert> : null}
         <TextField
+          className="margin-login"
           value={email}
           onChange={e => setEmail(e.target.value)}
           variant="outlined"
           label="Email"
         />
         <TextField
+          className="margin-login"
           value={password}
           onChange={e => setPassword(e.target.value)}
           variant="outlined"

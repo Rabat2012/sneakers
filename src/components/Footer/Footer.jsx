@@ -6,10 +6,11 @@ import visa from "../../assets/visa_logo.png";
 import mastercard from "../../assets/mastercard_logo.png";
 import paypal from "../../assets/paypal_logo.png";
 import american from "../../assets/american_logo.png";
+import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div>
+    <div className="footer">
       <hr />
       <br />
       <div

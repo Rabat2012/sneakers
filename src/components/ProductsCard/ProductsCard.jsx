@@ -17,7 +17,12 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { productsContext } from "../../contexts/productsContext";
+import { cartContext } from "../../contexts/cartContext";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { favContext } from "../../contexts/FavoriteContext";
 
 const ExpandMore = styled(props => {
   const { expand, ...other } = props;
@@ -32,34 +37,33 @@ const ExpandMore = styled(props => {
 
 export default function ProductsCard({ item }) {
   const navigate = useNavigate();
-  const { deleteProduct, toggleLike } = React.useContext(productsContext);
+  const { deleteProduct, toggleLike, toggleFavorites } =
+    React.useContext(productsContext);
+  const { addToFav, checkShoeInFav } = React.useContext(favContext);
+  const { addToCart, checkProductInCart } = React.useContext(cartContext);
+  const [shoesState, setShoesState] = React.useState(checkShoeInFav(item.id));
+  const [productsState, setProductsState] = React.useState(
+    checkProductInCart(item.id)
+  );
+  // React.useEffect(() => {
+  //   checkShoeInFav(item.id);
+  // }, []);
   const [expanded, setExpanded] = React.useState(false);
-  const [like, setLike] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  function likes() {
-    let liked = new FormData();
-    liked.append("like", like);
-    toggleLike();
-  }
+  console.log(item);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
-        // avatar={
-        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //     {item.author.slice(0, 1)}
-        //   </Avatar>
-        // }
         action={
           <IconButton onClick={() => navigate(`/products/${item.id}`)}>
             <MoreVertIcon />
           </IconButton>
         }
-        title={item.author}
       />
       <CardMedia
         component="img"
@@ -77,14 +81,31 @@ export default function ProductsCard({ item }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton>
-          <FavoriteIcon />
+        <IconButton
+          onClick={() => {
+            addToFav(item);
+            setShoesState(checkShoeInFav(item.id));
+          }}>
+          <BookmarkIcon color={shoesState ? "secondary" : "primary"} />
+        </IconButton>
+        <IconButton onClick={() => toggleLike(item.id)}>
+          {item.like}
+          <FavoriteIcon color={item.like ? "error" : "primary"} />
         </IconButton>
         <IconButton onClick={() => navigate(`/edit/${item.id}`)}>
           <EditIcon />
         </IconButton>
         <IconButton onClick={() => deleteProduct(item.id)}>
           <DeleteIcon />
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            addToCart(item);
+            setProductsState(checkProductInCart(item.id));
+          }}>
+          <AddShoppingCartIcon
+            color={productsState ? "secondary" : "primary"}
+          />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -96,7 +117,7 @@ export default function ProductsCard({ item }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Описание: {item.description}</Typography>
+          <Typography paragraph>Description: {item.description}</Typography>
         </CardContent>
       </Collapse>
     </Card>
