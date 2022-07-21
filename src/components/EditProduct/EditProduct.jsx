@@ -13,42 +13,66 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { PhotoCamera } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const navigate = useNavigate();
-  const { createProduct, getBrands, brands, getTypes, types } =
-    useContext(productsContext);
+  const { id } = useParams();
+  const {
+    getBrands,
+    brands,
+    getTypes,
+    types,
+    oneProduct,
+    getOneProduct,
+    updateProduct,
+  } = useContext(productsContext);
   const [title, setTitle] = useState("");
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState(0);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [sneakersType, setSneakersType] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     getBrands();
-  }, []);
-  useEffect(() => {
     getTypes();
   }, []);
+  useEffect(() => {
+    getBrands();
+    getTypes();
+    getOneProduct(id);
+  }, []);
+  console.log(oneProduct);
+  useEffect(() => {
+    if (oneProduct) {
+      setTitle(oneProduct.title);
+      setSize(oneProduct.size);
+      setDescription(oneProduct.description);
+      setPrice(oneProduct.price);
+      setBrand(oneProduct.brand);
+      setSneakersType(oneProduct.sneakers_type);
+    }
+  }, [oneProduct]);
   function handleSave() {
-    let newProduct = new FormData();
-    newProduct.append("title", title);
-    newProduct.append("size", size);
-    newProduct.append("description", description);
-    newProduct.append("price", price);
-    newProduct.append("brand", brand);
-    newProduct.append("sneakers_type", sneakersType);
-    newProduct.append("image", image);
-    createProduct(newProduct, navigate);
+    let editedProduct = new FormData();
+    editedProduct.append("title", title);
+    editedProduct.append("size", size);
+    editedProduct.append("description", description);
+    editedProduct.append("price", price);
+    editedProduct.append("brand", brand);
+    editedProduct.append("sneakers_type", sneakersType);
+    if (image) {
+      editedProduct.append("image", image);
+    }
+    updateProduct(id, editedProduct, navigate);
   }
-  console.log(brands);
+  // console.log(categories);
   return (
     <Container maxWidth="sm">
       <Box display={"flex"} flexDirection={"column"}>
-        <Typography variant="h6">Add product</Typography>
+        <Typography variant="h6">Edit product</Typography>
         <TextField
           label="Title"
           variant="outlined"
@@ -57,10 +81,10 @@ const AddProduct = () => {
         />
         <TextField
           type={"number"}
-          label="Price"
+          label="Size"
           variant="outlined"
-          value={price}
-          onChange={e => setPrice(e.target.value)}
+          value={size}
+          onChange={e => setSize(e.target.value)}
         />
         <TextField
           label="Description"
@@ -68,15 +92,13 @@ const AddProduct = () => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
-
         <TextField
           type={"number"}
-          label="Size"
+          label="Price"
           variant="outlined"
-          value={size}
-          onChange={e => setSize(e.target.value)}
+          value={price}
+          onChange={e => setPrice(e.target.value)}
         />
-
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Brand</InputLabel>
           <Select
@@ -123,6 +145,8 @@ const AddProduct = () => {
           {image ? <Typography variant="span">{image.name}</Typography> : null}
           <br />
           {image ? <Typography variant="span">{image.size}</Typography> : null}
+          <br />
+          {image ? <Typography variant="span">{image.size}</Typography> : null}
         </Box>
         <Button onClick={handleSave} variant="contained">
           Save
@@ -132,4 +156,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

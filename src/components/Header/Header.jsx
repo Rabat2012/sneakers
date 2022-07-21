@@ -28,9 +28,9 @@ const Header = () => {
               Brands
             </h3>
             <h3
-              onClick={() => navigate("/all-products")}
+              onClick={() => navigate("/products")}
               className="header__nav_link">
-              All Products
+              Products
             </h3>
           </div>
           <img
