@@ -23,6 +23,7 @@ import { productsContext } from "../../contexts/productsContext";
 import { cartContext } from "../../contexts/cartContext";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { favContext } from "../../contexts/FavoriteContext";
+import { authContext } from "../../contexts/authContext";
 
 const ExpandMore = styled(props => {
   const { expand, ...other } = props;
@@ -37,24 +38,22 @@ const ExpandMore = styled(props => {
 
 export default function ProductsCard({ item }) {
   const navigate = useNavigate();
-  const { deleteProduct, toggleLike, toggleFavorites } =
-    React.useContext(productsContext);
+  const { deleteProduct, toggleLike } = React.useContext(productsContext);
+  const { currentUser, setCurrentUser } = React.useContext(authContext);
   const { addToFav, checkShoeInFav } = React.useContext(favContext);
   const { addToCart, checkProductInCart } = React.useContext(cartContext);
   const [shoesState, setShoesState] = React.useState(checkShoeInFav(item.id));
   const [productsState, setProductsState] = React.useState(
     checkProductInCart(item.id)
   );
-  // React.useEffect(() => {
-  //   checkShoeInFav(item.id);
-  // }, []);
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  console.log(item);
+  console.log(currentUser);
 
   return (
     <Card sx={{ maxWidth: 345, margin: 5 }}>
@@ -92,7 +91,7 @@ export default function ProductsCard({ item }) {
           {item.like}
           <FavoriteIcon color={item.like ? "error" : "primary"} />
         </IconButton>
-        {item.author ? (
+        {currentUser === "admin@admin.com" ? (
           <div>
             <IconButton onClick={() => navigate(`/edit/${item.id}`)}>
               <EditIcon />
