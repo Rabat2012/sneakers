@@ -8,7 +8,7 @@ import { IconButton } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { AddShoppingCart } from "@mui/icons-material";
 
-const Header = () => {
+const Header = item => {
   const navigate = useNavigate();
   const { currentUser, checkAuth, loading, handleLogout } =
     useContext(authContext);
@@ -24,18 +24,21 @@ const Header = () => {
     <>
       <header className="header">
         <nav className="header__nav">
-          <div className="header__nav_product-list">
-            <h3
-              onClick={() => navigate("/brands")}
-              className="header__nav_link">
-              Brands
-            </h3>
-            <h3
-              onClick={() => navigate("/products")}
-              className="header__nav_link">
-              Products
-            </h3>
-          </div>
+          {currentUser ? (
+            <div className="header__nav_product-list">
+              <h3
+                onClick={() => navigate("/brands")}
+                className="header__nav_link">
+                Brands
+              </h3>
+              <h3
+                onClick={() => navigate("/products")}
+                className="header__nav_link">
+                Products
+              </h3>
+            </div>
+          ) : null}
+
           <img
             onClick={() => navigate("/")}
             className="header__nav_img"
@@ -57,7 +60,11 @@ const Header = () => {
                   <AddShoppingCart />
                 </IconButton>
               </div>
-              <h4 onClick={() => navigate("/add")}>Add product</h4>
+              {item.author ? (
+                <div>
+                  <h4 onClick={() => navigate("/add")}>Add product</h4>
+                </div>
+              ) : null}
 
               <h4>{currentUser}</h4>
               <h4 onClick={() => handleLogout(navigate)}>Logout</h4>
