@@ -92,12 +92,16 @@ export default function ProductsCard({ item }) {
           {item.like}
           <FavoriteIcon color={item.like ? "error" : "primary"} />
         </IconButton>
-        <IconButton onClick={() => navigate(`/edit/${item.id}`)}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={() => deleteProduct(item.id)}>
-          <DeleteIcon />
-        </IconButton>
+        {item.author ? (
+          <div>
+            <IconButton onClick={() => navigate(`/edit/${item.id}`)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => deleteProduct(item.id)}>
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        ) : null}
         <IconButton
           onClick={() => {
             addToCart(item);
