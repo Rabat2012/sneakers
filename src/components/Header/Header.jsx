@@ -20,6 +20,7 @@ const Header = item => {
   if (loading) {
     return <Loader />;
   }
+  console.log(currentUser);
   return (
     <>
       <header className="header">
@@ -60,7 +61,7 @@ const Header = item => {
                   <AddShoppingCart />
                 </IconButton>
               </div>
-              {item.author ? (
+              {currentUser === "admin@admin.com" ? (
                 <div>
                   <h4 onClick={() => navigate("/add")}>Add product</h4>
                 </div>
